@@ -12,10 +12,15 @@ import { Router, Route, Set } from '@redwoodjs/router'
 import BlogLayout from 'src/layouts/BlogLayout'
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout'
 
+import { useAuth } from './auth'
+
 const Routes = () => {
   return (
-    <Router>
-      <Route path="/article/{id:Int}" page={ArticlePage} name="article" />
+    <Router useAuth={useAuth}>
+      <Route path="/login" page={LoginPage} name="login" />
+      <Route path="/signup" page={SignupPage} name="signup" />
+      <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
+      <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
       <Set wrap={ScaffoldLayout} title="Posts" titleTo="posts" buttonLabel="New Post" buttonTo="newPost">
         <Route path="/admin/posts/new" page={PostNewPostPage} name="newPost" />
         <Route path="/admin/posts/{id:Int}/edit" page={PostEditPostPage} name="editPost" />
@@ -25,6 +30,7 @@ const Routes = () => {
       <Set wrap={BlogLayout}>
         <Route path="/about" page={AboutPage} name="about" />
         <Route path="/contact" page={ContactPage} name="contact" />
+        <Route path="/article/{id:Int}" page={ArticlePage} name="article" />
         <Route path="/" page={HomePage} name="home" />
       </Set>
       <Route notfound page={NotFoundPage} />
